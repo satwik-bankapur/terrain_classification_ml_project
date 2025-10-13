@@ -1,107 +1,32 @@
-# Terrain Classification ML Mini-Project
+Terrain Classification Project README
+This README provides a summary of the Terrain Classification Project implemented in the accompanying notebook. The project focuses on classifying terrain types using the BorealTC proprioceptive dataset, implementing and comparing a 1D CNN model and an SVM baseline.
 
-Machine Learning project for automated terrain classification using image data.
+Project Report Summary
+This section provides a concise summary of the terrain classification project, suitable for inclusion in a one-page PDF submission.
 
-## Project Information
+Problem and Approach
+Problem: The goal of this project was to classify terrain types using data from two different robotic datasets: the SAIL-R tactile dataset and the BorealTC proprioceptive dataset. Accurate terrain classification is crucial for autonomous robot navigation in various environments.
 
-**Course:** UE23CS352A Machine Learning  
-**Due Date:** October 13, 2025  
-**Team Members:** [Satwik R Bankapur, Sathwik H S]
+Approach: We focused on implementing and evaluating machine learning models for this task. Our approach involved:
 
-## Overview
+Data Preparation: Loading, preprocessing (segmentation into fixed-length windows, normalization), and splitting the datasets into training, validation, and test sets. Due to significant differences in features and missing values, and promising initial results, we primarily focused on the BorealTC IMU data for detailed model implementation and comparison.
+Model Implementation: Implementing a 1D Convolutional Neural Network (CNN) based on the architecture described in the Choi & Thomasson paper, and an Support Vector Machine (SVM) as a baseline classifier.
+Training and Evaluation: Training the implemented models on the prepared BorealTC IMU data and evaluating their performance using metrics such as accuracy, confusion matrices, and classification reports.
+Key Results
+We compared the performance of the 1D CNN and SVM models on the BorealTC IMU test dataset (6 features: wx, wy, wz, ax, ay, az).
 
-This project implements terrain classification using both traditional machine learning and deep learning approaches. The goal is to classify terrain images into 5 distinct categories: desert, forest, mountain, grassland, and rocky terrain.
+1D CNN Model: Achieved a test accuracy of {accuracy_boreal_imu:.4f}. The classification report (not explicitly shown in this summary but generated during evaluation) shows good precision, recall, and F1-scores across most classes, indicating that the 1D CNN effectively learned to classify terrain types from the IMU data. The confusion matrix (not explicitly shown) provides a breakdown of correct and incorrect classifications per class.
+SVM Baseline Model: Achieved a test accuracy of {accuracy_svm:.4f}. While better than random chance, the SVM's performance was significantly lower than the 1D CNN, highlighting the capability of the CNN architecture to capture relevant patterns in the sequential IMU data.
+Insight: The BorealTC IMU data proved to be highly effective for terrain classification using a 1D CNN in this project setup, yielding a promising accuracy.
 
-## Dataset
-
-- **Source:** Kaggle Terrain Dataset
-- **Total Images:** 1,000
-- **Image Size:** 224x224x3 pixels
-- **Number of Classes:** 5
-- **Classes:** Desert, Forest, Mountain, Grassland, Rocky
-
-## Methods
-
-Three different approaches were implemented and compared:
-
-1. **Support Vector Machine (SVM)** - Traditional ML with RBF kernel
-2. **Random Forest** - Ensemble method with 100 trees
-3. **Convolutional Neural Network (CNN)** - Deep learning with MobileNetV2 transfer learning
-
-## Results
-
-| Model | Accuracy |
-|-------|----------|
-| SVM | 100.0% |
-| Random Forest | 100.0% |
-| CNN (MobileNetV2) | 97.0% |
-
-## Implementation
-
-### Environment
-- Google Colab
-- Python 3.x
-- TensorFlow/Keras for deep learning
-- Scikit-learn for traditional ML
-
-### Features
-- Color features (RGB and HSV statistics)
-- Texture features (gradient-based)
-- Total of 15 engineered features
-
-### CNN Architecture
-- Base: MobileNetV2 (pre-trained on ImageNet)
-- Custom classification head with dropout
-- Data augmentation pipeline
-
-## Files
-
-terrain-classification-ml-project/
-├── ML_terrain_classification.ipynb (Main notebook)
-├── README.md
-├── results/
-│ ├── terrain_classification_results.csv
-│ └── detailed_predictions.csv
-└── docs/
-└── project_report.pdf
-
-
-## How to Run
-
-1. Open `terrain_classification.ipynb` in Google Colab
-2. Upload your Kaggle API key (kaggle.json)
-3. Run all cells sequentially
-4. Results will be saved to CSV files
-
-## Installation
-
-Required libraries:
-pip install tensorflow scikit-learn opencv-python matplotlib seaborn pandas numpy
-
-
-## Key Findings
-
-- Traditional ML models achieved perfect accuracy due to effective feature engineering
-- CNN with transfer learning achieved 97% accuracy
-- All models demonstrated excellent generalization on test data
-- Feature extraction from images is crucial for traditional ML performance
-
-## Technical Stack
-
-- **Deep Learning:** TensorFlow, Keras
-- **Machine Learning:** Scikit-learn
-- **Image Processing:** OpenCV
-- **Visualization:** Matplotlib, Seaborn
-- **Data Handling:** Pandas, NumPy
-
-## Authors
-
-Satwik R Bankapur
-Sathwik H S
-Computer Science Students
-
-## Acknowledgments
-
-- Course instructors and TAs
-- Kaggle for dataset hosting
-- Google Colab for computational resources
+Challenges
+Dataset Differences: The significant differences in sensor types, features, and data structure between the SAIL-R and BorealTC datasets posed a challenge for creating a unified processing pipeline or a single model input.
+SAIL-R Dataset Size: The relatively small size of the SAIL-R dataset after segmentation and filtering made it difficult to train a complex model like a CNN without severe overfitting, leading us to focus on the larger BorealTC dataset.
+BorealTC Missing Values: The distinct patterns of missing values in the BorealTC dataset (velocity/current vs. IMU) required separate handling of these feature sets during data preprocessing.
+Future Work
+Explore Other Models: Implement and evaluate other machine learning models (e.g., LSTMs, Transformers, or other CNN variants) on the BorealTC IMU data to potentially improve classification accuracy.
+Investigate Multi-modal Fusion: Explore techniques for combining information from different BorealTC modalities (Velocity/Current and IMU) or potentially even the SAIL-R data (if compatible features can be identified or extracted) to leverage the strengths of each sensor type for improved terrain classification.
+Hyperparameter Tuning: Systematically tune the hyperparameters of the implemented models (especially the 1D CNN) to optimize their performance.
+Cross-validation: Implement cross-validation during training to obtain more robust performance estimates and reduce reliance on a single train/validation/test split.
+Real-time Implementation: Consider the computational requirements for deploying the trained models on a robot for real-time terrain classification.
+Note: This README summarizes the key aspects of the project. For detailed code implementation, data processing steps, and complete evaluation results (including full confusion matrices and classification reports), please refer to the accompanying Google Colab notebook.
