@@ -1,0 +1,4 @@
+Model,Accuracy,Type
+SVM,1.0,Traditional ML
+Random Forest,1.0,Traditional ML
+CNN (MobileNetV2),0.97,Deep Learning
