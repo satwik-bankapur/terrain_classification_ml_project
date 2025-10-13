@@ -1,6 +1,3 @@
-Terrain Classification Project README
-This README provides a summary of the Terrain Classification Project implemented in the accompanying notebook. The project focuses on classifying terrain types using the BorealTC proprioceptive dataset, implementing and comparing a 1D CNN model and an SVM baseline.
-
 Project Report Summary
 This section provides a concise summary of the terrain classification project, suitable for inclusion in a one-page PDF submission.
 
